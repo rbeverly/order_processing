@@ -1,4 +1,4 @@
-# Turns a csv into a basic hash
+# Turns a csv into some reasonable sortofa hash
 
 class Hash_CSV
   # Pass in a CSV, ie: CSV.read('file/path')
@@ -11,14 +11,5 @@ class Hash_CSV
     else
       Hash[*c.dup.flatten]
     end
-  end
-end
-
-class Array
-  def odds
-    self.values_at(* self.each_index.select {|i| i.odd?})
-  end
-  def evens
-    self.values_at(* self.each_index.select {|i| i.even?})
   end
 end
