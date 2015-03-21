@@ -1,10 +1,12 @@
 require 'csv'
 require 'geocoder'
-require './hash_csv.rb'
+require_relative 'hash_csv'
+require_relative 'tax_report_csv'
+require_relative 'tax_report_html'
 
 ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/orders.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
-OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report.csv"
+OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
 orders_csv = CSV.read(ORDER_PATH)
 orders = Hash_CSV.convert(orders_csv, true)
@@ -22,19 +24,6 @@ orders.each { |order|
   order[:discretionary_tax] = rates[order[:county]]
 }
 
-# puts orders.first.inspect
-
-CSV.open(OUTPUT_PATH, "wb") do |csv|
-  csv << ["Order Number", "Name", "Address", "County", "Discretionary Tax"]
-  orders.each { |order| 
-    csv << [
-      order["Order number"], 
-      order["Billing First Name"].downcase.capitalize + 
-        " " + order["Billing Last Name"].downcase.capitalize,
-      order[:address_string],
-      order[:county],
-      order[:discretionary_tax]
-    ]
-  }
-end
+Tax_Report_CSV.write(orders, OUTPUT_PATH + ".csv")
+Tax_Report_HTML.write(orders, OUTPUT_PATH + ".html")
 
