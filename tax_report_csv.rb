@@ -2,7 +2,7 @@
 
 HEADERS = ["Order Number", "Name", "Address", "County", "Discretionary Tax"]
 
-class Tax_Report_CSV
+class TaxReportCSV
   def self.write(orders, path)
     CSV.open(path, "wb") do |csv|
       csv << HEADERS

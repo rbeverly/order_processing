@@ -1,6 +1,6 @@
 # Turns a csv into some reasonable sortofa hash
 
-class Hash_CSV
+class HashCSV
   # Pass in a CSV, ie: CSV.read('file/path')
   def self.convert(c, headers)
     if (headers == true)

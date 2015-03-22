@@ -4,7 +4,7 @@
 
 require 'haml'
 
-class Tax_Report_HTML
+class TaxReportHTML
   def self.write(orders, path)
     engine = Haml::Engine.new(File.read("tax_report_template.html.haml"))
     content = engine.render(Object.new, :orders => orders)

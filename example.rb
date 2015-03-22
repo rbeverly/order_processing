@@ -9,10 +9,10 @@ RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
 orders_csv = CSV.read(ORDER_PATH)
-orders = Hash_CSV.convert(orders_csv, true)
+orders = HashCSV.convert(orders_csv, true)
 
 rates_csv = CSV.read(RATE_PATH)
-rates = Hash_CSV.convert(rates_csv, false)
+rates = HashCSV.convert(rates_csv, false)
 
 orders.each { |order| 
   order[:address_string] = 
@@ -24,6 +24,6 @@ orders.each { |order|
   order[:discretionary_tax] = rates[order[:county]]
 }
 
-Tax_Report_CSV.write(orders, OUTPUT_PATH + ".csv")
-Tax_Report_HTML.write(orders, OUTPUT_PATH + ".html")
+TaxReportCSV.write(orders, OUTPUT_PATH + ".csv")
+TaxReportHTML.write(orders, OUTPUT_PATH + ".html")
 
