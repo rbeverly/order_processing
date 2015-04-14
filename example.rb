@@ -4,7 +4,7 @@ require_relative 'hash_csv'
 require_relative 'tax_report_csv'
 require_relative 'tax_report_html'
 
-ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/orders.csv"
+ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/feb-mar.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
@@ -15,6 +15,9 @@ rates_csv = CSV.read(RATE_PATH)
 rates = HashCSV.convert(rates_csv, false)
 
 orders.each { |order| 
+  if not order["Shipping Address1"]
+    next
+  end
   order[:address_string] = 
     [order["Shipping Address1"].split.map(&:capitalize).join(' '), 
       order["Shipping City"].downcase.capitalize, 
