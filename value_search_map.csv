@@ -1,0 +1,13 @@
+column,value,price,multiplier_column,comment
+35,1,50,9,"bought PC study manual"
+36,1,50,9,"bought PC study manual"
+37,1,45,9,"bought LH study manual"
+38,1,45,9,"bought LH study manual"
+47,1,35,9,"bought LH flashcards"
+50,1,35,9,"bought LH flashcards"
+54,1,45,9,"bought PC flashcards"
+55,1,45,9,"bought PC flashcards"
+58,"General Lines/Personal Lines/CSR Study Manuals (24th Ed)",50,9,"bought PC study manual - check for multiple"
+58,"Life Health and VA Study Manuals (29th Ed)",45,9,"bought LH study manual - check for multiple"
+58,"General Lines/Personal Lines Flash Cards",45,9,"bought PC flashcards - check for multiple"
+58,"Life, Health and VA Flash Card",35,9,"bought LH flashcards - check for multiple"

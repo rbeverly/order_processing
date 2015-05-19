@@ -8,7 +8,7 @@ class TaxReportCSV
       csv << HEADERS
       orders.each { |order| 
     csv << [
-      order["Order number"], 
+      order["Order #"], 
       order["Billing First Name"].downcase.capitalize + 
         " " + order["Billing Last Name"].downcase.capitalize,
       order[:address_string],
