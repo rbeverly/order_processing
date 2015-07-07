@@ -7,7 +7,7 @@ require 'pry'
 
 #TODO: Price of each order and total tax
 
-ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report-april.csv"
+ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/order_june.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 

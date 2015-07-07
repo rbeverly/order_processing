@@ -1,6 +1,19 @@
 %html
   %body
     %h1 Sales Tax Report
-    %p Order Number, Name, Address, County, Discretionary Tax Rate
-    - orders.each do |order|
-      %p= "[" + order["Order #"] + "] " + order["Billing First Name"].downcase.capitalize + " " + order["Billing Last Name"].downcase.capitalize + ", " + order[:address_string] + ", " + order[:county] + " -- " + order[:discretionary_tax] + "%"
+    %p
+    %table{:border => 1}
+      %tbody
+        %tr
+          %th Order Number
+          %th Name
+          %th Address
+          %th County
+          %th Discretionary Tax Rate
+        - orders.each do |order|
+          %tr
+            %td= order["Order #"]
+            %td= order["Billing First Name"].downcase.capitalize + " " + order["Billing Last Name"].downcase.capitalize
+            %td= order[:address_string]
+            %td= order[:county]
+            %td= order[:discretionary_tax] + "%"
