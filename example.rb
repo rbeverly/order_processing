@@ -7,7 +7,7 @@ require 'pry'
 
 #TODO: Price of each order and total tax
 
-ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/order_june.csv"
+ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/order_december.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
@@ -32,7 +32,7 @@ throttle = 0
 queries = 0
 print "Query: "
 CSV.open(OUTPUT_PATH + ".csv", "wb") do |csv|
-  csv << ["Order Number", "Name", "Address", "County", "Discretionary Tax"]
+  csv << ["Order Number", "Date / Time Placed", "Name", "Address", "County", "Discretionary Tax"]
   orders.each { |order| 
     if order["Shipping Address1"].nil?
       order[:county] = "unknown"
@@ -70,7 +70,8 @@ CSV.open(OUTPUT_PATH + ".csv", "wb") do |csv|
     order[:county] || order[:county] = "unknown"
     order[:discretionary_tax] || order[:discretionary_tax] = "unknown"
     csv << [
-      order["Order #"], 
+      order["Order #"],
+      order["Date / Time Placed"],
       order["Billing First Name"].downcase.capitalize + 
         " " + order["Billing Last Name"].downcase.capitalize,
       order[:address_string],

@@ -1,6 +1,6 @@
 # output to csv format for quickbooks etc
 
-HEADERS = ["Order Number", "Name", "Address", "County", "Discretionary Tax"]
+HEADERS = ["Order Number", "Date / Time Placed", "Name", "Address", "County", "Discretionary Tax"]
 
 class TaxReportCSV
   def self.write(orders, path)
@@ -9,6 +9,7 @@ class TaxReportCSV
       orders.each { |order| 
     csv << [
       order["Order #"], 
+      order["Date / Time Placed"],
       order["Billing First Name"].downcase.capitalize + 
         " " + order["Billing Last Name"].downcase.capitalize,
       order[:address_string],
