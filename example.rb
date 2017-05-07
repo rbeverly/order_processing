@@ -3,11 +3,11 @@ require 'geocoder'
 require_relative 'hash_csv'
 require_relative 'tax_report_csv'
 require_relative 'tax_report_html'
-require 'pry'
+# require 'pry'
 
 #TODO: Price of each order and total tax
 
-ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/order_december.csv"
+ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/Apr2017.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
@@ -32,26 +32,28 @@ throttle = 0
 queries = 0
 print "Query: "
 CSV.open(OUTPUT_PATH + ".csv", "wb") do |csv|
-  csv << ["Order Number", "Date / Time Placed", "Name", "Address", "County", "Discretionary Tax"]
-  orders.each { |order| 
-    if order["Shipping Address1"].nil?
+  orders.each { |order|
+
+    if order["PostalCode"].nil? || (order["State"] != "FL")
       order[:county] = "unknown"
       order[:discretionary_tax] = "unknown"
       order[:address_string] = "No address found"
       next
     end
 
-    order[:address_string] = 
-      [order["Shipping Address1"].split.map(&:capitalize).join(' '), 
-        order["Shipping City"].downcase.capitalize + ",",
-        order["Shipping State/Province"],
-        order["Shipping Postal Code"]].join(' ')
+    order[:address_string] =
+      [order["Address"].split.map(&:capitalize).join(' '),
+        order["City"].downcase.capitalize + ",",
+        order["State"],
+        order["PostalCode"]].join(' ')
 
     queries += 1
     print "#{queries}.. "
 
     if (geo_address = Geocoder.search(order[:address_string]))
       puts "Done geocoding... I think"
+    else
+      puts "Geocode error."
     end
     # binding.pry
     if geo_address.first.nil?
@@ -61,23 +63,16 @@ CSV.open(OUTPUT_PATH + ".csv", "wb") do |csv|
       if geo_address.first.sub_state.nil?
         order[:county] = "unknown"
         order[:discretionary_tax] = "unknown"
+        order[:tax] = "0"
       else
         order[:county] = geo_address.first.sub_state
         order[:discretionary_tax] = rates[order[:county]]
+        order[:tax] = (6.0 + order[:discretionary_tax].to_f).to_s
       end
     end
     # binding.pry
     order[:county] || order[:county] = "unknown"
     order[:discretionary_tax] || order[:discretionary_tax] = "unknown"
-    csv << [
-      order["Order #"],
-      order["Date / Time Placed"],
-      order["Billing First Name"].downcase.capitalize + 
-        " " + order["Billing Last Name"].downcase.capitalize,
-      order[:address_string],
-      order[:county],
-      order[:discretionary_tax]
-    ]
 
     throttle += 1
     if throttle >= 5
@@ -98,4 +93,3 @@ begin
 rescue
   puts "Did not write HTML, sorry."
 end
-
