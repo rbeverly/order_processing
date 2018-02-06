@@ -5,17 +5,26 @@
     %table{:border => 1}
       %tbody
         %tr
-          %th Order Number
-          %th Date / Time Placed
-          %th Name
+          %th OrderNumber
+          %th Date
+          %th ProductName
+          %th Total
+          %th Refunded
+          %th Taxable
+          %th StudentName
           %th Address
           %th County
-          %th Discretionary Tax Rate
+          %th Discretionary Tax
         - orders.each do |order|
           %tr
-            %td= order["Order #"]
-            %td= order["Date / Time Placed"]
-            %td= order["Billing First Name"].downcase.capitalize + " " + order["Billing Last Name"].downcase.capitalize
+            %td= order["OrderNumber"]
+            %td= order["Date"]
+            %td= order["ProductName"]
+            %td= order["Total"]
+            %td= order["Refunded"]
+            %td= order["Taxable"]
+            %td= order["StudentName"]
             %td= order[:address_string]
             %td= order[:county]
             %td= order[:discretionary_tax] + "%"
+            %td= order[:tax]

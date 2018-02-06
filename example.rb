@@ -7,18 +7,18 @@ require_relative 'tax_report_html'
 
 #TODO: Price of each order and total tax
 
-ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/Apr2017.csv"
+ORDER_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/export.csv"
 RATE_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/county-tax.csv"
 OUTPUT_PATH = ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/report"
 
-# key_file = File.new(ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/google_api.txt", "r")
-# api_key = key_file.readlines[0]
-# key_file.close
-# puts api_key
+key_file = File.new(ENV['HOME'] + "/Box\ Sync/Tax\ Calculation/google_api.txt", "r")
+api_key = key_file.readlines[0]
+key_file.close
+# puts "Using key: " + api_key
 
 Geocoder.configure(
   :lookup => :google,
-  # :api_key => api_key,
+  :api_key => api_key,
   :use_https => true
 )
 

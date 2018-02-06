@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    geocoder (1.3.7)
+    haml (4.0.7)
+      tilt
+    tilt (2.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  geocoder
+  haml
+
+BUNDLED WITH
+   1.13.6
